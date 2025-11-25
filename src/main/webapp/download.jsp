@@ -1,57 +1,67 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Murach's Java Servlets and JSP</title>
+    <title>Downloads</title>
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
 </head>
 <body>
 
-    <%
-        // 1. L?y mã s?n ph?m t? Session
-        String productCode = (String) session.getAttribute("productCode");
-        
-        // 2. Khai báo bi?n ?? l?u thông tin bài hát
-        String albumTitle = "Unknown Album";
-        String song1Title = "";
-        String song1File = "";
-        String song2Title = "";
-        String song2File = "";
+    <c:set var="code" value="${sessionScope.productCode}" />
 
-        // 3. Ki?m tra mã s?n ph?m và gán tên file chính xác theo hình ?nh c?a b?n
-        if ("8601".equals(productCode)) {
-            albumTitle = "86 (the band) - True Life Songs and Pictures";
-            song1Title = "You Are a Star";
-            song1File = "star.mp3";
-            song2Title = "Don't Make No Difference";
-            song2File = "no_difference.mp3";
-        } 
-        else if ("pf01".equals(productCode)) {
-            albumTitle = "Paddlefoot - The First CD";
-            song1Title = "Whiskey";
-            song1File = "whiskey.mp3";
-            song2Title = "Corvair";
-            song2File = "corvair.mp3";
-        } 
-        else if ("pf02".equals(productCode)) {
-            albumTitle = "Paddlefoot - The Second CD";
-            song1Title = "Neon";
-            song1File = "neon.mp3";
-            song2Title = "Tank";
-            song2File = "tank.mp3";
-        } 
-        else if ("jr01".equals(productCode)) {
-            albumTitle = "Joe Rut - Genuine Wood Grained Finish";
-            song1Title = "Filter";
-            song1File = "filter.mp3";
-            song2Title = "So Long";
-            song2File = "so_long.mp3";
-        }
-    %>
+    <c:choose>
+        <%-- TrÆ°á»ng há»£p 8601 --%>
+        <c:when test="${code == '8601'}">
+            <c:set var="albumTitle" value="86 (the band) - True Life Songs and Pictures" />
+            <c:set var="song1Title" value="You Are a Star" />
+            <c:set var="song1File" value="star.mp3" />
+            <c:set var="song2Title" value="Don't Make No Difference" />
+            <c:set var="song2File" value="no_difference.mp3" />
+        </c:when>
+
+        <%-- TrÆ°á»ng há»£p pf01 --%>
+        <c:when test="${code == 'pf01'}">
+            <c:set var="albumTitle" value="Paddlefoot - The First CD" />
+            <c:set var="song1Title" value="Whiskey" />
+            <c:set var="song1File" value="whiskey.mp3" />
+            <c:set var="song2Title" value="Corvair" />
+            <c:set var="song2File" value="corvair.mp3" />
+        </c:when>
+
+        <%-- TrÆ°á»ng há»£p pf02 --%>
+        <c:when test="${code == 'pf02'}">
+            <c:set var="albumTitle" value="Paddlefoot - The Second CD" />
+            <c:set var="song1Title" value="Neon" />
+            <c:set var="song1File" value="neon.mp3" />
+            <c:set var="song2Title" value="Tank" />
+            <c:set var="song2File" value="tank.mp3" />
+        </c:when>
+
+        <%-- TrÆ°á»ng há»£p jr01 --%>
+        <c:when test="${code == 'jr01'}">
+            <c:set var="albumTitle" value="Joe Rut - Genuine Wood Grained Finish" />
+            <c:set var="song1Title" value="Filter" />
+            <c:set var="song1File" value="filter.mp3" />
+            <c:set var="song2Title" value="So Long" />
+            <c:set var="song2File" value="so_long.mp3" />
+        </c:when>
+
+        <%-- Máº·c Ä‘á»‹nh --%>
+        <c:otherwise>
+            <c:set var="albumTitle" value="Unknown Album" />
+            <c:set var="song1Title" value="Unknown" />
+            <c:set var="song1File" value="#" />
+            <c:set var="song2Title" value="Unknown" />
+            <c:set var="song2File" value="#" />
+        </c:otherwise>
+    </c:choose>
 
     <h1>Downloads</h1>
     
-    <h2><%= albumTitle %></h2>
+    <h2>${albumTitle}</h2>
 
     <table>
         <tr>
@@ -59,15 +69,15 @@
             <th>Audio Format</th>
         </tr>
         <tr>
-            <td><%= song1Title %></td>
+            <td>${song1Title}</td>
             <td>
-                <a href="musicStore/sound/<%= productCode %>/<%= song1File %>" download>MP3</a>
+                <a href="musicStore/sound/${code}/${song1File}" download>MP3</a>
             </td>
         </tr>
         <tr>
-            <td><%= song2Title %></td>
+            <td>${song2Title}</td>
             <td>
-                <a href="musicStore/sound/<%= productCode %>/<%= song2File %>" download>MP3</a>
+                <a href="musicStore/sound/${code}/${song2File}" download>MP3</a>
             </td>
         </tr>
     </table>
