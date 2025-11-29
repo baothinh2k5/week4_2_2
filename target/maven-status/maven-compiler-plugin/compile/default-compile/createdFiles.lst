@@ -1,5 +1,7 @@
+murach\download\ConnectionPool.class
+murach\download\DownloadServlet.class
 murach\download\CookieUtil.class
+murach\download\UserDB.class
 com\mycompany\dow\JakartaRestConfiguration.class
 com\mycompany\dow\resources\JakartaEE10Resource.class
-murach\download\DownloadServlet.class
 murach\download\User.class
